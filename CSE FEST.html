@@ -204,8 +204,7 @@
       .side-card { flex-direction: row; gap: 16px; }
       .side-card .mini { flex: 1; }
     }
-
-    @media (max-width:640px){
+@media (max-width:640px){
 
   /* Lighten blobs for less distraction */
   .blob {
@@ -228,11 +227,21 @@
     position: relative;
     z-index: 5;
   }
-    }
-html,body {
-  background: linear-gradient(180deg, #101620 0%, #0e0f16 100%);
-  background-attachment: fixed;
-  color: #92e389c7;/*text color*/
+
+  /* Optional: slightly darken page background gradient */
+  body {
+    background: linear-gradient(180deg, rgba(15,23,36,0.95), rgba(43,27,74,0.95));
+  }
+
+  /* Poster & cards adjustments for better contrast */
+  .hero-card, .event-card, .dept, .mini {
+    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  }
+
+  /* Adjust text colors slightly for higher contrast */
+  h1, h2, h3, p, li, time {
+    color: #92e389c7; /* light and readable */
+  }
 }
 
   </style>
@@ -538,6 +547,7 @@ html,body {
   </script>
 </body>
 </html>
+
 
 
 

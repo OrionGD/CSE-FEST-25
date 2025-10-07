@@ -226,17 +226,17 @@
 /* Mobile */
 @media (max-width: 640px) {
   /* Lighten blobs for less distraction */
-  .blob {
-    opacity: 0.15;       /* very subtle */
-    filter: blur(50px);  /* softer blur */
-  }
+ /* .blob {
+    opacity: 0.15;       /* very subtle 
+    filter: blur(50px);  /* softer blur *
+  }*/
 
   /* Dark overlay behind content */
   .wrap::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.45); /* semi-transparent dark layer */
+  /*  background: rgba(0,0,0,0.45); /* semi-transparent dark layer */
     z-index: 1;
     border-radius: 12px;
   }
@@ -248,19 +248,11 @@
   }
 
   /* Slightly darken page background gradient */
-  body {
-    background: linear-gradient(180deg, rgba(15,23,36,0.95), rgba(43,27,74,0.95));
-  }
-
-  /* Poster & cards adjustments for better contrast */
-  .hero-card, .event-card, .dept, .mini {
-    background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
-  }
-
-  /* Adjust text colors slightly for higher contrast */
-  h1, h2, h3, p, li, time {
-    color: #92e389c7; /* light and readable */
-  }
+html,body {
+  background: linear-gradient(180deg, #101620 0%, #0e0f16 100%);
+  background-attachment: fixed;
+  color: #92e389c7;/*text color*/
+}
 
   /* Stack grid cards vertically on small screens */
   .grid {
@@ -572,6 +564,7 @@
   </script>
 </body>
 </html>
+
 
 
 

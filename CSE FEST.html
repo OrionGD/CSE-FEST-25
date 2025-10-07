@@ -197,13 +197,25 @@
     .agenda-event p { margin-top: 6px; font-size: 14px; color: #d6e5ff; line-height: 1.5; }
 
     /* responsiveness */
-    @media (max-width: 980px) {
-      .hero { grid-template-columns: 1fr; }
-      .events-grid { grid-template-columns: repeat(2, 1fr); }
-      .grid { grid-template-columns: repeat(2, 1fr); }
-      .side-card { flex-direction: row; gap: 16px; }
-      .side-card .mini { flex: 1; }
-    }
+@media (max-width:980px){
+  .hero {
+    grid-template-columns: 1fr;   /* stack hero-card + side-card */
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .poster {
+    height: auto;                /* let poster scale naturally */
+    max-height: 320px;           /* still keep it from getting too tall */
+  }
+  .side-card {
+    flex-direction: row;         /* put poster + QR side by side on tablets */
+    gap: 16px;
+  }
+  .side-card .mini {
+    flex: 1;
+  }
+}
 @media (max-width:640px){
 
   /* Lighten blobs for less distraction */
@@ -547,6 +559,7 @@
   </script>
 </body>
 </html>
+
 
 
 

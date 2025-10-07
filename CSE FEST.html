@@ -199,6 +199,9 @@
     /* MEDIA QUERIES */
 
 /* Tablet / Small Desktop */
+/* MEDIA QUERIES */
+
+/* Tablet / Small Desktop */
 @media (max-width: 980px) {
   .hero {
     grid-template-columns: 1fr;   /* stack hero-card + side-card */
@@ -226,17 +229,17 @@
 /* Mobile */
 @media (max-width: 640px) {
   /* Lighten blobs for less distraction */
- /* .blob {
-    opacity: 0.15;       /* very subtle 
-    filter: blur(50px);  /* softer blur *
-  }*/
+  .blob {
+    opacity: 0.15;       /* very subtle */
+    filter: blur(50px);  /* softer blur */
+  }
 
   /* Dark overlay behind content */
   .wrap::before {
     content: "";
     position: absolute;
     inset: 0;
-  /*  background: rgba(0,0,0,0.45); /* semi-transparent dark layer */
+    background: rgba(0,0,0,0.45); /* semi-transparent dark layer */
     z-index: 1;
     border-radius: 12px;
   }
@@ -247,12 +250,15 @@
     z-index: 5;
   }
 
-  /* Slightly darken page background gradient */
-html,body {
-  background: linear-gradient(180deg, #101620 0%, #0e0f16 100%);
-  background-attachment: fixed;
-  color: #92e389c7;/*text color*/
-}
+  /* Poster & cards adjustments for better contrast */
+  .hero-card, .event-card, .dept, .mini {
+    background: rgba(255,255,255,0.05); /* simple semi-transparent background */
+  }
+
+  /* Adjust text colors slightly for higher contrast */
+  h1, h2, h3, p, li, time {
+    color: #92e389c7; /* light and readable */
+  }
 
   /* Stack grid cards vertically on small screens */
   .grid {
@@ -564,6 +570,7 @@ html,body {
   </script>
 </body>
 </html>
+
 
 
 

@@ -1,0 +1,466 @@
+import React, { useState } from "react";
+import {
+  Typography,
+  Container,
+  Paper,
+  Tabs,
+  Tab,
+  Box,
+  Table,
+  TableHead,
+  TableBody,
+  TableRow,
+  TableCell,
+  TextField,
+  Select,
+  MenuItem,
+  InputLabel,
+  FormControl,
+  Grid,
+  Card,
+  CardContent,
+} from "@mui/material";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+  RadialBarChart,
+  RadialBar,
+  PolarAngleAxis,
+  LineChart,
+  Line,
+  AreaChart,
+  Area,
+  DonutChart,
+} from "recharts";
+
+const volunteers = [
+  // Populate with all 80 volunteers from data: {name, year, section, gender, committee}
+  // Example:
+  { name: "Hariharan V", year: "IV", section: "A", gender: "M", committee: "Overall Coordinator" },
+  // ... add all from dataset
+];
+
+const committeesData = [
+  { committee: "Overall Coordinator", total: 2, male: 2, female: 0 },
+  { committee: "Registration", total: 7, male: 4, female: 3 },
+  { committee: "Hall Arrangement", total: 6, male: 4, female: 2 },
+  { committee: "Compering", total: 4, male: 1, female: 3 },
+  { committee: "Refreshment", total: 7, male: 6, female: 1 },
+  { committee: "Participants Lunch", total: 7, male: 6, female: 1 },
+  { committee: "Certificate & Prize", total: 7, male: 6, female: 1 },
+  { committee: "Paper Presentation", total: 6, male: 3, female: 3 },
+  { committee: "Ideathon", total: 6, male: 3, female: 3 },
+  { committee: "FreeFire", total: 6, male: 4, female: 2 },
+  { committee: "Connectionx", total: 6, male: 3, female: 3 },
+  { committee: "TuneSeek", total: 6, male: 3, female: 3 },
+  { committee: "Video Editing", total: 6, male: 3, female: 3 },
+  { committee: "Brochure Distribution", total: 1, male: 1, female: 0 },
+  { committee: "Discipline", total: 1, male: 1, female: 0 },
+  { committee: "Social Media", total: 1, male: 1, female: 0 },
+  { committee: "Newspaper", total: 1, male: 1, female: 0 },
+];
+
+const sectionsData = [
+  { section: "II A", male: 5, female: 4, total: 9 },
+  { section: "II B", male: 3, female: 5, total: 8 },
+  { section: "II C", male: 6, female: 5, total: 11 },
+  { section: "III A", male: 9, female: 5, total: 14 },
+  { section: "III B", male: 3, female: 5, total: 8 },
+  { section: "III C", male: 7, female: 4, total: 11 },
+  { section: "IV A", male: 3, female: 4, total: 7 },
+  { section: "IV B", male: 4, female: 2, total: 6 },
+  { section: "IV C", male: 3, female: 3, total: 6 },
+];
+
+const yearData = [
+  { year: "II", male: 14, female: 13, total: 27, percent: 33.75 },
+  { year: "III", male: 19, female: 15, total: 34, percent: 42.5 },
+  { year: "IV", male: 10, female: 9, total: 19, percent: 23.75 },
+];
+
+const COLORS = ["#0088FE", "#FF8042"];
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      {...other}
+      style={{ marginTop: 20 }}
+    >
+      {value === index && <Box>{children}</Box>}
+    </div>
+  );
+}
+
+export default function FestDashboard() {
+  const [tab, setTab] = useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setTab(newValue);
+  };
+
+  const totalVolunteers = 80;
+  const totalMale = 43;
+  const totalFemale = 37;
+  const totalCommittees = 17;
+  const totalSections = 9;
+
+  return (
+    <Container maxWidth="xl" sx={{ paddingTop: 4, paddingBottom: 4 }}>
+      <Typography variant="h4" gutterBottom align="center" fontWeight="bold">
+        FEST 2K25 Volunteer Dashboard
+      </Typography>
+
+      <Paper square>
+        <Tabs
+          value={tab}
+          onChange={handleTabChange}
+          indicatorColor="primary"
+          textColor="primary"
+          variant="scrollable"
+          scrollButtons="auto"
+        >
+          <Tab label="Overview" />
+          <Tab label="Committees" />
+          <Tab label="Sections" />
+          <Tab label="Students" />
+          <Tab label="Analytics" />
+          <Tab label="Insights" />
+        </Tabs>
+
+        {/* Overview Tab */}
+        <TabPanel value={tab} index={0}>
+          <Grid container spacing={3} justifyContent="center">
+            <Grid item xs={12} sm={6} md={2}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" align="center" color="textSecondary">
+                    Total Volunteers
+                  </Typography>
+                  <Typography variant="h4" align="center" color="primary" fontWeight="bold">
+                    {totalVolunteers}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={6} sm={3} md={2}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" align="center" color="textSecondary">
+                    Male
+                  </Typography>
+                  <Typography variant="h4" align="center" color="info.main" fontWeight="bold">
+                    {totalMale}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={6} sm={3} md={2}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" align="center" color="textSecondary">
+                    Female
+                  </Typography>
+                  <Typography variant="h4" align="center" color="secondary.main" fontWeight="bold">
+                    {totalFemale}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={6} sm={3} md={2}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" align="center" color="textSecondary">
+                    Committees
+                  </Typography>
+                  <Typography variant="h4" align="center" color="success.main" fontWeight="bold">
+                    {totalCommittees}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={6} sm={3} md={2}>
+              <Card>
+                <CardContent>
+                  <Typography variant="h6" align="center" color="textSecondary">
+                    Sections
+                  </Typography>
+                  <Typography variant="h4" align="center" color="warning.main" fontWeight="bold">
+                    {totalSections}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+
+          <Grid container spacing={4} sx={{ marginTop: 4 }}>
+            <Grid item xs={12} md={6}>
+              <Typography variant="h6" gutterBottom>
+                Overall Gender Distribution
+              </Typography>
+              <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                  <Pie
+                    data={[
+                      { name: "Male", value: totalMale },
+                      { name: "Female", value: totalFemale },
+                    ]}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={({ name, percent }) =>
+                      `${name}: ${(percent * 100).toFixed(0)}%`
+                    }
+                    outerRadius={100}
+                    fill="#8884d8"
+                    dataKey="value"
+                  >
+                    {COLORS.map((color, index) => (
+                      <Cell key={`cell-${index}`} fill={color} />
+                    ))}
+                  </Pie>
+                  <Tooltip />
+                </PieChart>
+              </ResponsiveContainer>
+            </Grid>
+
+            <Grid item xs={12} md={6}>
+              <Typography variant="h6" gutterBottom>
+                Year-wise Participation %
+              </Typography>
+              <ResponsiveContainer width="100%" height={300}>
+                <RadialBarChart
+                  cx="50%"
+                  cy="50%"
+                  innerRadius="10%"
+                  outerRadius="80%"
+                  barSize={15}
+                  data={yearData}
+                >
+                  <RadialBar
+                    minAngle={15}
+                    background
+                    clockWise
+                    dataKey="percent"
+                    fill="#0088FE"
+                  />
+                  <PolarAngleAxis
+                    type="category"
+                    dataKey="year"
+                    tick={true}
+                  />
+                  <Tooltip />
+                </RadialBarChart>
+              </ResponsiveContainer>
+            </Grid>
+          </Grid>
+        </TabPanel>
+
+        {/* Committees Tab */}
+        <TabPanel value={tab} index={1}>
+          <Typography variant="h6" gutterBottom>
+            Committee Member Count & Gender Distribution
+          </Typography>
+
+          <ResponsiveContainer width="100%" height={400}>
+            <BarChart
+              data={committeesData}
+              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+              layout="vertical"
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis type="number" />
+              <YAxis dataKey="committee" type="category" width={180} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="male" stackId="a" fill="#0088FE" />
+              <Bar dataKey="female" stackId="a" fill="#FF8042" />
+            </BarChart>
+          </ResponsiveContainer>
+
+          <Typography variant="h6" gutterBottom sx={{ marginTop: 4 }}>
+            Committee Details Table
+          </Typography>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Committee</TableCell>
+                <TableCell align="right">Total Members</TableCell>
+                <TableCell align="right">Male</TableCell>
+                <TableCell align="right">Female</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {committeesData.map((c) => (
+                <TableRow key={c.committee}>
+                  <TableCell>{c.committee}</TableCell>
+                  <TableCell align="right">{c.total}</TableCell>
+                  <TableCell align="right">{c.male}</TableCell>
+                  <TableCell align="right">{c.female}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TabPanel>
+
+        {/* Sections Tab */}
+        <TabPanel value={tab} index={2}>
+          <Typography variant="h6" gutterBottom>
+            Section-wise Volunteer Counts
+          </Typography>
+          <ResponsiveContainer width="100%" height={350}>
+            <BarChart
+              data={sectionsData}
+              margin={{ top: 20, right: 20, left: 20, bottom: 5 }}
+              layout="vertical"
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis type="number" />
+              <YAxis type="category" dataKey="section" width={100} />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="male" stackId="a" fill="#0088FE" />
+              <Bar dataKey="female" stackId="a" fill="#FF8042" />
+            </BarChart>
+          </ResponsiveContainer>
+
+          <Typography variant="h6" gutterBottom sx={{ marginTop: 4 }}>
+            Section Details Table
+          </Typography>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Section</TableCell>
+                <TableCell align="right">Total</TableCell>
+                <TableCell align="right">Male</TableCell>
+                <TableCell align="right">Female</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {sectionsData.map((s) => (
+                <TableRow key={s.section}>
+                  <TableCell>{s.section}</TableCell>
+                  <TableCell align="right">{s.total}</TableCell>
+                  <TableCell align="right">{s.male}</TableCell>
+                  <TableCell align="right">{s.female}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TabPanel>
+
+        {/* Students Tab */}
+        <TabPanel value={tab} index={3}>
+          <Typography variant="h6" gutterBottom>
+            Volunteer Student List
+          </Typography>
+          <TextField
+            fullWidth
+            margin="normal"
+            label="Search by Name"
+            variant="outlined"
+            // Implement Search state and function if needed
+          />
+
+          <Table size="small" stickyHeader>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Year</TableCell>
+                <TableCell>Section</TableCell>
+                <TableCell>Gender</TableCell>
+                <TableCell>Committee</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {volunteers.map((v) => (
+                <TableRow key={v.name}>
+                  <TableCell>{v.name}</TableCell>
+                  <TableCell>{v.year}</TableCell>
+                  <TableCell>{v.section}</TableCell>
+                  <TableCell>{v.gender}</TableCell>
+                  <TableCell>{v.committee}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TabPanel>
+
+        {/* Analytics Tab */}
+        <TabPanel value={tab} index={4}>
+          <Typography variant="h6" gutterBottom>
+            Year-wise Participation (Stacked M/F)
+          </Typography>
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart
+              data={yearData}
+              margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+            >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="year" />
+              <YAxis />
+              <Tooltip />
+              <Legend />
+              <Bar dataKey="male" stackId="a" fill="#0088FE" />
+              <Bar dataKey="female" stackId="a" fill="#FF8042" />
+            </BarChart>
+          </ResponsiveContainer>
+
+          <Typography variant="h6" gutterBottom sx={{ marginTop: 4 }}>
+            Year-wise Volunteer Gender Ratio
+          </Typography>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Year</TableCell>
+                <TableCell align="right">Male</TableCell>
+                <TableCell align="right">Female</TableCell>
+                <TableCell align="right">Total</TableCell>
+                <TableCell align="right">Participation %</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {yearData.map((y) => (
+                <TableRow key={y.year}>
+                  <TableCell>{y.year}</TableCell>
+                  <TableCell align="right">{y.male}</TableCell>
+                  <TableCell align="right">{y.female}</TableCell>
+                  <TableCell align="right">{y.total}</TableCell>
+                  <TableCell align="right">{y.percent}%</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TabPanel>
+
+        {/* Insights Tab */}
+        <TabPanel value={tab} index={5}>
+          <Typography variant="h6" gutterBottom>
+            Key Insights
+          </Typography>
+          <ul>
+            <li>Most active year: III Year (42.5% participation)</li>
+            <li>Overall Gender Ratio: 54% Male, 46% Female</li>
+            <li>Largest section: III A with 14 volunteers</li>
+            <li>Most balanced section: IV C with equal Male and Female volunteers</li>
+            <li>Largest committees have 7 members, smallest have 1</li>
+            <li>Female-dominated committees: Compering, Ideathon, TuneSeek</li>
+            <li>Male-dominated committees: FreeFire, Overall Coordinator</li>
+            <li>8 committees have balanced gender representation</li>
+          </ul>
+        </TabPanel>
+      </Paper>
+    </Container>
+  );
+}
